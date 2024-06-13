@@ -6,7 +6,7 @@
 #define	CONSUMER	"Consumer"
 #endif
 
-int main(int argc, char **argv)
+void main()
 {
 	char *chipname = "gpiochip4";
 	unsigned int line_num = 26;	// GPIO Pin #26
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	chip = gpiod_chip_open_by_name(chipname);
 	if (!chip) {
 		perror("Open chip failed\n");
-		goto end;
+		exit(1);
 	}
 
 	line = gpiod_chip_get_line(chip, line_num);
@@ -50,6 +50,4 @@ release_line:
 	gpiod_line_release(line);
 close_chip:
 	gpiod_chip_close(chip);
-end:
-	return 0;
 }
